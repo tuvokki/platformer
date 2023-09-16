@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://xdttyyentjwh"]
+
+[ext_resource type="TileSet" uid="uid://7a62yxrejpt8" path="res://files/game_root.tres" id="1_ojoov"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_je5ue"]
+size = Vector2(20.3293, 19.799)
+
+[node name="Lock" type="StaticBody2D" groups=["locks"]]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_ojoov")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 524288, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9.09763, 8.98789)
+shape = SubResource("RectangleShape2D_je5ue")

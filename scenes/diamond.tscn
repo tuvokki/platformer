@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfs4vtgqr2qho"]
+
+[ext_resource type="TileSet" uid="uid://7a62yxrejpt8" path="res://files/game_root.tres" id="1_wd6ih"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_om3ws"]
+size = Vector2(16, 16)
+
+[node name="Diamond" type="StaticBody2D" groups=["diamonds"]]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_wd6ih")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 458752, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_om3ws")
