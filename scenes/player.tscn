@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://cs5wpglnjnkpf"]
+
+[ext_resource type="Script" path="res://src/Player.gd" id="1_1n1nf"]
+[ext_resource type="Texture2D" uid="uid://dsur3iws7pq7" path="res://files/characters_packed.png" id="2_sube0"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6rwdu"]
+texture = ExtResource("2_sube0")
+texture_region_size = Vector2i(24, 24)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_g6ne7"]
+tile_size = Vector2i(24, 24)
+sources/2 = SubResource("TileSetAtlasSource_6rwdu")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_po8ex"]
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(-583, 68)
+script = ExtResource("1_1n1nf")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_g6ne7")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 524290, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, 12)
+shape = SubResource("CircleShape2D_po8ex")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../../Camera2D")

@@ -1,15 +1,20 @@
 extends Node
 
-var diamond: StaticBody2D = preload("res://scenes/diamond.tscn").instantiate()
+#var diamond: StaticBody2D = preload("res://scenes/diamond.tscn").instantiate()
+var player: Node = preload("res://scenes/player.tscn").instantiate()
+
 @onready var game_root: Node = get_tree().root.get_node("GameRoot")
-@onready var world: Node = game_root.get_node("World")
-@onready var diamonds: Node = world.get_node("Diamonds")
+# Stats
 @onready var score_label: Label = game_root.get_node("Stats").get_node("Score")
 @onready var key_warning_label: Label = game_root.get_node("Stats").get_node("KeyWarning")
+@onready var start_screen: Node = game_root.get_node("Stats").get_node("Start")
+@onready var complete: Node = game_root.get_node("Stats").get_node("LevelComplete")
 
+var level = "Level_001"
 var score = 0
 var has_key = false
 var won = false
+var running = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,19 +34,42 @@ func add_key():
 func add_lock():
 	if has_key:
 		won = true
-		get_tree().change_scene_to_file("res://scenes/LevelComplete.tscn")
+		end()
 	else:
 		key_warning_label.visible = true
 		await get_tree().create_timer(1.0).timeout
 		key_warning_label.visible = false
 
-func lost():
-	get_tree().change_scene_to_file("res://scenes/LevelComplete.tscn")
+func end():
+	await get_tree().create_timer(0.2).timeout
+	running = false
+	complete.visible = true
+	# Free old stuff.
+	if player != null:
+		player.queue_free()
+	var current_level = game_root.get_node_or_null(level)
+	if current_level != null:
+		current_level.queue_free()
+
+func start():
+	var current_level = load("res://scenes/" + level + ".tscn").instantiate()
+	game_root.add_child(current_level)
+	player = load("res://scenes/player.tscn").instantiate()
+	player.position = current_level.get_node("SpawnPoint").position
+	game_root.add_child(player)
+	start_screen.visible = false
+	complete.visible = false
+	running = true
 
 func restart():
-	pass
-	#var score_label: Label = game_root.get_node("Stats").get_node("Score")
-	#get_tree().change_scene_to_file("res://scenes/game_root.tscn")
+	score = 0
+	score_label.text = "Score: " + str(score)
+	has_key = false
+	won = false
+	start()
+
+func quit():
+	get_tree().quit()
 
 func get_random_position():
 	var screenSize = get_viewport().get_visible_rect().size

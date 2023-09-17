@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://v06ywbpyucy1"]
+
+[ext_resource type="LabelSettings" uid="uid://c3mern64uueqq" path="res://files/standard_label_settings.tres" id="1_5bk5q"]
+
+[node name="Stats" type="CanvasLayer"]
+
+[node name="Score" type="Label" parent="."]
+offset_left = 1008.0
+offset_top = 23.0
+offset_right = 1139.0
+offset_bottom = 62.0
+text = "Score: 0"
+label_settings = ExtResource("1_5bk5q")
+horizontal_alignment = 2
+
+[node name="KeyWarning" type="Label" parent="."]
+visible = false
+offset_left = 342.0
+offset_top = 99.0
+offset_right = 804.0
+offset_bottom = 138.0
+text = "You need to find the key first!"
+label_settings = ExtResource("1_5bk5q")
